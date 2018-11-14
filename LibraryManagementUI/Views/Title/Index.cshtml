@@ -1,0 +1,163 @@
+﻿<style>
+    .has-error {
+        border-color: red;
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="TitleCtrl" style="font-family:Mlwpm1">
+    <h4>Titles</h4>
+    <div ng-show="loadData == true">
+
+        <div style="background-color:#f9f9f9; padding:12px; border-bottom:solid 1px #f3f3f3;">
+
+            <form name="TitleForm" id="TitleForm" ng-submit="AddTitle(addTitle,TitleForm.$valid)" novalidate>
+                <div class="row" ng-class="{ 'has-error' : TitleForm.name.$invalid && !TitleForm.name.$pristine }">
+                    <div class=" col-md-2"><label> Name </label></div>
+                    <div class="col-md-2"> <input type="text" name="name" autofocus class="form-control" ng-model="addTitle.Name" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : TitleForm.Author.$invalid && !TitleForm.Author.$pristine }">
+                    <div class=" col-md-2"><label> Author </label></div>
+                    <div class="col-md-2"> <input type="text" name="Author" autofocus class="form-control" ng-model="addTitle.Author" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : TitleForm.Publisher.$invalid && !TitleForm.Publisher.$pristine }">
+                    <div class=" col-md-2"><label> Publisher </label></div>
+                    <div class="col-md-2"> <input type="text" name="Publisher" autofocus class="form-control" ng-model="addTitle.Publisher" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : TitleForm.Price.$invalid && !TitleForm.Price.$pristine }">
+                    <div class=" col-md-2"><label> Price </label></div>
+                    <div class="col-md-2"> <input type="number" name="Price" class="form-control" ng-model="addTitle.Price" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : TitleForm.Level.$invalid && !TitleForm.Level.$pristine }">
+                    <div class="col-md-2"><label> Level </label></div>
+                    <div class="col-md-2"> <select name="Level" class="form-control" ng-model="addTitle.Level" ng-options="Level.Name for Level in LevelList" required></select></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : TitleForm.TitleCategory.$invalid && !TitleForm.TitleCategory.$pristine }">
+                    <div class=" col-md-2"><label> TitleCategory </label></div>
+                    <div class="col-md-2"> <select name="TitleCategory" class="form-control" ng-model="addTitle.TitleCategory.Id" ng-options="TitleCategory.Name for TitleCategory in TitleCategoryList" required></select></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+
+                <br />
+
+                <div class="row" style="padding-top:10px" ng-class="{ 'has-error' : TitleForm.name.$invalid && !TitleForm.name.$pristine }">
+                    <div class=" col-md-2"></div>
+                    <div class="col-md-6"><button type="submit" class="btn btn-sm primary" style="max-width:300px;" ng-disabled="TitleForm.$invalid">Add</button></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div ng-show="loadError == true" class=".has-error">
+                    Error: {{ErrorMessage}}
+                </div>
+            </form>
+        </div>
+        <table class="table  table-hover" ng-init="editor=false;display=true">
+            <thead>
+                <tr>
+                    <td class="col-md-2"><b>Name</b></td>
+                    <td class="col-md-2"><b>Author</b></td>
+                    <td class="col-md-2"><b>Publisher</b></td>
+                    <td class="col-md-2"><b>Price</b></td>
+                    <td class="col-md-2"><b>TitleCategory</b></td>
+                    <td class="col-md-2"><b>Level</b></td>
+                    <td class="col-md-2"><b>Count</b></td>
+                    <td class="col-md-1" colspan="2"><b>Action</b></td>
+                </tr>
+            </thead>
+            <tr>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="filterName" placeholder="Filter name" />
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="filterAuthor" placeholder="Filter Author" />
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="filterPublisher" placeholder="Filter Publisher" />
+                </td>
+                <td class="col-md-2">
+                </td>
+                <td class="col-md-2">
+                    <select name="TitleCategory" class="form-control" ng-model="filterTitleCategory" ng-options="TitleCategory.Name for TitleCategory in TitleCategoryList" />
+                </td>
+                <td class="col-md-2">
+                    <select id="Level" name="Level" class="form-control" ng-model="filterLevel" ng-options="Level.Name for Level in LevelList" />
+                </td>
+            </tr>
+
+            <tbody ng-repeat="Title in TitlesList | filter: filterTitleList" ng-form="editorform">
+
+                <tr ng-show="!EditingRows[$index]">
+                    <td class="col-md-2">
+                        {{Title.Name}}
+                    </td>
+                    <td class="col-md-2">
+                        {{Title.Author}}
+                    </td>
+                    <td class="col-md-2">
+                        {{Title.Publisher}}
+                    </td>
+                    <td class="col-md-2">
+                        {{Title.Price}}
+                    </td>                   
+                    <td class="col-md-2">
+                        {{Title.TitleCategory}}
+                    </td>
+                    <td class="col-md-2">
+                        {{Title.Level}}
+                    </td>
+                    <td class="col-md-2">
+                        {{Title.BookCount}}
+                    </td>   
+                    <td title="Edit">
+                        <span style="cursor:pointer;" class="glyphicon glyphicon-pencil info" ng-click="Editing(Title,$index)"></span>
+                    </td>
+                    <td title="Delete"><span style="cursor:pointer;" confirmed-click="DeleteTitle(Title.Id)" ng-confirm-click="Are you sure you want to delete?" class=" glyphicon glyphicon-remove"></span></td>
+                </tr>
+                <tr ng-show="EditingRows[$index]">
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.Name.$invalid && !editorform.Name.$pristine }">
+                        <input type="text" name="Name" class="form-control" ng-model="Title.Name" required />
+                    </td>
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.Author.$invalid && !editorform.Author.$pristine }">
+                        <input type="text" name="Author" class="form-control" ng-model="Title.Author" />
+                    </td>
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.Publisher.$invalid && !editorform.Publisher.$pristine }">
+                        <input type="text" name="Publisher" class="form-control" ng-model="Title.Publisher" />
+                    </td>
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.Price.$invalid && !editorform.Price.$pristine }">
+                        <input type="number" name="Price" class="form-control" ng-model="Title.Price" />
+                    </td>                    
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.TitleCategory.$invalid && !editorform.TitleCategory.$pristine }">
+                        <select id="TitleCategory" name="TitleCategory" class="form-control" ng-model="Title.TitleCategory" ng-options="TitleCategory.Name for TitleCategory in TitleCategoryList" />
+                    </td>
+                    <td class="col-md-2" ng-class="{ 'has-error' : editorform.Level.$invalid && !editorform.Level.$pristine }">
+                        <select id="Level" name="Level" class="form-control" ng-model="Title.Level" ng-options="Level.Name for Level in LevelList" />
+                    </td>
+                    <td>
+                        <button type="submit"
+                                class="btn btn-sm primary"
+                                ng-disabled="editorform.$invalid"
+                                ng-click="UpdateTitle(Title)">
+                            Save
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-default btn-sm"
+                                ng-click="CancelEditing(Title, $index)">
+                            Cancel
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

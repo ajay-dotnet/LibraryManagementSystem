@@ -1,0 +1,75 @@
+﻿<style>
+    .has-error {
+        border-color: red;
+    }
+
+    #scrollable-dropdown-menu .dropdown-menu {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="CheckInCtrl">
+    <h4>Check-In and Check-out books</h4>
+    <div ng-show="loadData == true">
+
+        <div style="background-color:#f9f9f9; padding:12px; border-bottom:solid 1px #f3f3f3;">
+
+            <form name="CheckInForm" id="CheckInForm" ng-submit="AddCheckInRecord(addCheckIn, Barcodes, CheckInForm.$valid)" novalidate>
+                <div class="col-md-2"><input type="radio" ng-model="Choice" value="Issue"> Issue Books</div>
+                <div class="col-md-2"><input type="radio" ng-model="Choice" value="CheckIn"> Check-In Books</div>
+                <br />
+                <br />
+                <div class="row" ng-class="{ 'has-error' : CheckInForm.Fairy.$invalid && !CheckInForm.Fairy.$pristine }">
+                    <div class="col-md-2"><label> Fairy </label></div>
+                    <div class="col-md-2" id="scrollable-dropdown-menu"><input type="text" name="Fairy" autofocus class="form-control" ng-model="addCheckIn.Fairy" uib-typeahead="fairy as fairy.Name for fairy in FairyList | filter:$viewValue" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : CheckInForm.Barcodes.$invalid && !CheckInForm.Barcodes.$pristine }">
+                    <div class=" col-md-2"><label> Book Barcode </label></div>
+                    <div class="col-md-2">
+                        @*<ui-select multiple tagging tagging-label="false" class="form-control" ng-model="Barcodes" theme="bootstrap" style="width: 300px;" title="barcodes">
+                                <ui-select-match placeholder="Book Barcodes">{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="spl in bars | filter:$select.search">
+                                    {{spl}}
+                                </ui-select-choices>
+                            </ui-select>*@
+                        @*<ui-select tagging multiple ng-model="Barcodes" class="form-control">
+                            <ui-select-match>{{$select.selected}}</ui-select-match>
+                            @*<ui-select-choices ng-repeat="color in FairyList | filter:$select.search">
+                                {{color}}
+                            </ui-select-choices>*@
+                        @*</ui-select>*@
+                        <input ng-model="Barcodes" class="form-control" ng-list required />
+                        <br />
+                        {{Barcodes}}
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+
+                <div class="row" ng-class="{ 'has-error' : CheckInForm.DamLostDate.$invalid && !CheckInForm.DamLostDate.$pristine }">
+                    <div class=" col-md-2"><label> Issue/CheckIn Date </label></div>
+                    <div class="col-md-2">
+                        <p class="input-group" ng-switch="Choice">
+                            <input type="text" ng-switch-when="Issue" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="addCheckIn.IssueDate" name="IssueDate" is-open="availableLostDatePopup.opened" close-text="Close" ng-click="OpenAvailableDate()" placeholder="Issue Date" required />
+                            <input type="text" ng-switch-when="CheckIn" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="addCheckIn.CheckInDate" name="CheckInDate" is-open="availableLostDatePopup.opened" close-text="Close" ng-click="OpenAvailableDate()" placeholder="Checkin Date" required />
+                        </p>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <br />
+
+                <div class="row" style="padding-top:10px" ng-class="{ 'has-error' : CheckInForm.name.$invalid && !CheckInForm.name.$pristine }">
+                    <div class=" col-md-2"></div>
+                    <div class="col-md-6"><button type="submit" class="btn btn-sm primary" style="max-width:300px;" ng-disabled="CheckInForm.$invalid">Submit</button></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

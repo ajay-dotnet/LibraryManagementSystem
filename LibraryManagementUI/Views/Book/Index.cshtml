@@ -1,0 +1,109 @@
+﻿<style>
+    .has-error {
+        border-color: red;
+    }
+
+    #scrollable-dropdown-menu .dropdown-menu {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="BookCtrl">
+    <h4>Books</h4>
+    <div ng-show="loadData == true">
+
+        <div style="background-color:#f9f9f9; padding:12px; border-bottom:solid 1px #f3f3f3;">
+
+            <form name="BookForm" id="BookForm" ng-submit="AddBooks(addBook, NoOfBooks, BookForm.$valid)" novalidate>
+
+
+                <div class="row" ng-class="{ 'has-error' : BookForm.Title.$invalid && !BookForm.Title.$pristine }">
+                    <div class=" col-md-2"><label> Title </label></div>
+                    <div class="col-md-2" id="scrollable-dropdown-menu"><input type="text" name="Title" autofocus class="form-control" ng-model="addBook.Title" uib-typeahead="title as title.Name for title in TitlesList | filter:$viewValue" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : BookForm.PurchaseDate.$invalid && !BookForm.PurchaseDate.$pristine }">
+                    <div class=" col-md-2"><label> Purchase Date </label></div>
+                    <div class="col-md-2">
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="addBook.PurchaseDate" name="PurchaseDate" is-open="availablePurchaseDatePopup.opened" ng-required="true" close-text="Close" ng-click="OpenAvailablePurchaseDate()" placeholder="Available Date" />
+                        </p>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : BookForm.BookCondition.$invalid && !BookForm.BookCondition.$pristine }">
+                    <div class=" col-md-2"><label> BookCondition </label></div>
+                    <div class="col-md-2"> <select name="BookCondition" class="form-control" ng-model="addBook.BookCondition" ng-options="BookCondition.Name for BookCondition in BookConditionList" required></select></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : BookForm.DamLostDate.$invalid && !BookForm.DamLostDate.$pristine }">
+                    <div class=" col-md-2"><label> Damage/Lost Date </label></div>
+                    <div class="col-md-2">
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="addBook.DamLostDate" name="DamLostDate" is-open="availableLostDatePopup.opened" close-text="Close" ng-click="OpenAvailableLostDate()" placeholder="Available Date" />
+                        </p>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : BookForm.IssuedStatus.$invalid && !BookForm.IssuedStatus.$pristine }">
+                    <div class="col-md-2"><label> Issued Status </label></div>
+                    <div class="col-md-2"> <select name="IssuedStatus" class="form-control" ng-model="addBook.IssuedStatus" ng-options="x for (x, y) in IssuedStatusList" required></select></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="row" ng-class="{ 'has-error' : BookForm.NoOfBooks.$invalid && !BookForm.NoOfBooks.$pristine }">
+                    <div class=" col-md-2"><label> Number of Books </label></div>
+                    <div class="col-md-2"> <input type="number" name="NoOfBooks" class="form-control" ng-model="NoOfBooks" required /></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+
+                <br />
+
+                <div class="row" style="padding-top:10px" ng-class="{ 'has-error' : BookForm.name.$invalid && !BookForm.name.$pristine }">
+                    <div class=" col-md-2"></div>
+                    <div class="col-md-6"><button type="submit" class="btn btn-sm primary" style="max-width:300px;" ng-disabled="BookForm.$invalid">Add</button></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <input type='button' id='btn' value='Print' onclick='printFunc();'>
+    <div id="printarea">
+        @*<div ng-repeat="rows in BarcodeList">
+                <div class="col-md-4" ng-repeat="item in rows">
+                    <img src={{item}}>
+                </div>
+            </div>
+            without bootstrap*@
+        <div ng-repeat="rows in BarcodeList">
+            <div style="width:50%; height:10%; float:left; position:relative; padding-right:15px; padding-left:15px; box-sizing:border-box; text-align:center" ng-repeat="item in rows">
+                <img src={{item}}>
+            </div>
+        </div>
+        @*<table>
+                <tr ng-repeat="x in BarcodeList">
+                    <td><img src={{x}}></td>
+                </tr>
+            </table>*@
+    </div>
+</div>
+<script>
+    function printFunc() {
+        var divToPrint = document.getElementById('printarea');
+        var htmlToPrint = divToPrint.outerHTML;
+        newWin = window.open("");
+        //newWin.document.write("<h3 align='center'>Barcodes</h3>");
+        newWin.document.write(htmlToPrint);
+        newWin.document.close(); // necessary for IE >= 10
+        newWin.focus();
+        newWin.print();
+        newWin.close();
+    }
+</script>
+

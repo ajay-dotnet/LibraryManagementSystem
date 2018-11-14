@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <style>
+        .has-error {
+            border-color: red;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+            .sidenav a {
+                padding: 6px 6px 6px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: 40px;
+                right: 25px;
+                font-size: 30px;
+                margin-left: 50px;
+            }
+
+        .navbar-brand{
+            float:none;
+        }
+
+        .main {
+            /*margin-left: 200px;*/ /* Same as the width of the sidenav */
+        }
+
+        @@media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 65px;
+            }
+
+                .sidenav a {
+                    font-size: 18px;
+                }
+        }
+
+         @@font-face {
+        font-family: Mlwpm1; src: url('~/fonts/Mlwpm1.TTF');
+    }
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/Title/Index">Titles</a>
+        <a href="/Book/Index">Books</a>
+        <a href="/CheckIn/Index">CheckIn/Out</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span style="font-size:30px;cursor:pointer;margin-left:-50px"  onclick="openNav()">&#9776;</span> &nbsp;&nbsp;
+                <span>@Html.ActionLink("Library Management System", "Index", "Title", new { area = "" }, new { @class = "navbar-brand" })</span> 
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container body-content main">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Library Management</p>
+        </footer>
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "200px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Angular/controller.js"></script>
+    <script src="~/Scripts/Angular/Directives.js"></script>
+    <script src="~/Scripts/Angular/Services.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+    <script src="~/Scripts/select.js"></script>
+</body>
+</html>

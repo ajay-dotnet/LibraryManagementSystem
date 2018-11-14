@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Barcode";
+}
+
+<h2>Barcode</h2>
+<div ng-app="myApp" ng-controller="BookCtrl">
+    <div>
+        <table>
+            <tr ng-repeat="x in BarcodeList">
+                <td><img src={{x}}></td>
+            </tr>
+        </table>
+    </div>
+</div>
