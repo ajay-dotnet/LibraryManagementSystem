@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "UpdateBookCondition";
+}
+
+<div ng-app="myApp" ng-controller="UpdateBookConditionCtrl">
+    <h4>UpdateBookCondition</h4>
+
+    <div style="background-color:#f9f9f9; padding:12px; border-bottom:solid 1px #f3f3f3;">
+
+        <form name="UpdateBookConditionForm" id="UpdateBookConditionForm" ng-submit="UpdateBookCondition(Barcodes, BookCondition, DamLostDate, UpdateBookConditionForm.$valid)" novalidate>
+            <div class="row" ng-class="{ 'has-error' : UpdateBookConditionForm.Book.$invalid && !UpdateBookConditionForm.Book.$pristine }">
+                <div class="col-md-2"><label> Barcode </label></div>
+                <div class="col-md-2">
+                    <input ng-model="Barcodes" class="form-control" ng-list required />
+                    <br />
+                    {{Barcodes}}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br />
+            <div class="row" ng-class="{ 'has-error' : UpdateBookConditionForm.BookCondition.$invalid && !UpdateBookConditionForm.BookCondition.$pristine }">
+                <div class=" col-md-2"><label> BookCondition </label></div>
+                <div class="col-md-2"> <select name="BookCondition" class="form-control" ng-model="BookCondition" ng-options="BookCondition.Name for BookCondition in BookConditionList" required></select></div>
+                <div class="col-md-2"></div>
+            </div>
+            <br />
+            <div class="row" ng-class="{ 'has-error' : UpdateBookConditionForm.DamLostDate.$invalid && !UpdateBookConditionForm.DamLostDate.$pristine }">
+                <div class=" col-md-2"><label> Damage/Lost Date </label></div>
+                <div class="col-md-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="DamLostDate" name="DamLostDate" is-open="availableLostDatePopup.opened" close-text="Close" ng-click="OpenAvailableLostDate()" placeholder="Available Date" />
+                    </p>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br />
+            <br />
+
+            <div class="row" style="padding-top:10px" ng-class="{ 'has-error' : UpdateBookConditionForm.name.$invalid && !UpdateBookConditionForm.name.$pristine }">
+                <div class=" col-md-2"></div>
+                <div class="col-md-6"><button type="submit" class="btn btn-sm primary" style="max-width:300px;" ng-disabled="UpdateBookConditionForm.$invalid">Update</button></div>
+                <div class="col-md-2"></div>
+            </div>
+            <div ng-show="loadError == true" class=".has-error">
+                Error: {{ErrorMessage}}
+            </div>
+        </form>
+    </div>
+</div>
+

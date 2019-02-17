@@ -243,10 +243,55 @@ myApp.controller('TitleCtrl', function (
 
         $scope.AddCheckInRecord = function (addCheckIn, Barcodes, isValid) {
             if (isValid) {
+                $scope.ErrorMessage = null;
                 CheckInService.addCheckInRecords(addCheckIn, Barcodes).then((function (data) {
+                    $scope.loadError = true;
+                    $scope.ErrorMessage = data.data.Message;
                 }), (function (error) { }))
                     .finally(function () {
                         $scope.addCheckIn = null;
+                        $scope.Barcodes = null;
+                        $scope.CheckInForm.$setPristine();
+                    });
+            } else {
+                alert('Please provide valid inputs');
+            }
+        };
+    })
+    .controller('UpdateBookConditionCtrl', function (
+        $scope,
+        $window,
+        $location,
+        BookService) {
+
+        $scope.BookConditionList = [];
+        $scope.loadData = false;
+
+        $scope.BarcodeList = [];
+
+        $scope.GetBookConditionList = function () {
+            BookService.getBookConditionList().then((function (data) {
+                $scope.loadData = true;
+                $scope.BookConditionList = data.data;
+            }), (function (error, status) { $scope.loadData = false; }))
+        };
+        $scope.GetBookConditionList();
+
+        $scope.availableLostDatePopup = {
+            opened: false
+        };
+        $scope.OpenAvailableLostDate = function () {
+            $scope.availableLostDatePopup.opened = !$scope.availableLostDatePopup.opened;
+        };
+
+        $scope.UpdateBookCondition = function (Barcodes, BookCondition, DamLostDate, isValid) {
+            if (isValid) {
+                $scope.ErrorMessage = null;
+                BookService.updateBookCondition(Barcodes, BookCondition, DamLostDate).then((function (data) {
+                    $scope.loadError = true;
+                    $scope.ErrorMessage = data.data.Message;
+                }), (function (error) { }))
+                    .finally(function () {
                         $scope.Barcodes = null;
                         $scope.CheckInForm.$setPristine();
                     });

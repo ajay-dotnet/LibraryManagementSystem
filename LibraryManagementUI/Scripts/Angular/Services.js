@@ -42,6 +42,10 @@ BookService.factory('BookService', function ($http) {
         addBooks: function (Book, NoOfBooks) {
             return $http({ method: 'POST', url: url + 'AddBooks', data: { Book, NoOfBooks }, cache: false })
         }
+        ,
+        updateBookCondition: function (Barcodes, BookCondition, DamLostDate) {
+            return $http({ method: 'POST', url: url + 'UpdateBookCondition', data: { Barcodes, BookCondition, DamLostDate }, cache: false })
+        }
     }
 });
 var CheckInService = angular.module('CheckInService', [])

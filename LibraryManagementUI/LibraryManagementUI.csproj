@@ -211,6 +211,7 @@
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\CheckIn\Index.cshtml" />
     <Content Include="Views\Book\Barcode.cshtml" />
+    <Content Include="Views\Book\UpdateBookCondition.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

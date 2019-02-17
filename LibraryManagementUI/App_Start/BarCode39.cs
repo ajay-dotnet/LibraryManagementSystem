@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
@@ -15,7 +16,11 @@ namespace LibraryManagementUI.App_Start
         SizeF _codeStringSize = SizeF.Empty;
         public BarCode39()
         {
-            _titleFont = new Font("Arial", 10);
+            PrivateFontCollection collection = new PrivateFontCollection();
+            collection.AddFontFile(@ConfigurationManager.AppSettings["MarathiFontPath"]);
+            FontFamily fontFamily = new FontFamily("Mlwpm1", collection);
+            _titleFont = new Font(fontFamily, 10);
+
             _codeStringFont = new Font("Arial", 10);
         }
         #region Barcode Title

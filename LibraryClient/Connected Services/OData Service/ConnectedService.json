@@ -16,8 +16,8 @@
       "MinorRevision": 0
     },
     "GeneratedFileNamePrefix": "Reference",
-    "UseNameSpacePrefix": true,
-    "NamespacePrefix": "LibraryManagement.LibraryClient",
+    "UseNameSpacePrefix": false,
+    "NamespacePrefix": null,
     "UseDataServiceCollection": true
   }
 }

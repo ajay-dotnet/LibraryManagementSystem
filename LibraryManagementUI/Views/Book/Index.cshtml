@@ -20,7 +20,7 @@
 
                 <div class="row" ng-class="{ 'has-error' : BookForm.Title.$invalid && !BookForm.Title.$pristine }">
                     <div class=" col-md-2"><label> Title </label></div>
-                    <div class="col-md-2" id="scrollable-dropdown-menu"><input type="text" name="Title" autofocus class="form-control" ng-model="addBook.Title" uib-typeahead="title as title.Name for title in TitlesList | filter:$viewValue" required /></div>
+                    <div class="col-md-2" id="scrollable-dropdown-menu" style="font-family:Mlwpm1"><input type="text" name="Title" autofocus class="form-control" ng-model="addBook.Title" uib-typeahead="title as title.Name for title in TitlesList | filter:$viewValue" required /></div>
                     <div class="col-md-2"></div>
                 </div>
                 <br />
@@ -47,12 +47,6 @@
                             <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="addBook.DamLostDate" name="DamLostDate" is-open="availableLostDatePopup.opened" close-text="Close" ng-click="OpenAvailableLostDate()" placeholder="Available Date" />
                         </p>
                     </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <br />
-                <div class="row" ng-class="{ 'has-error' : BookForm.IssuedStatus.$invalid && !BookForm.IssuedStatus.$pristine }">
-                    <div class="col-md-2"><label> Issued Status </label></div>
-                    <div class="col-md-2"> <select name="IssuedStatus" class="form-control" ng-model="addBook.IssuedStatus" ng-options="x for (x, y) in IssuedStatusList" required></select></div>
                     <div class="col-md-2"></div>
                 </div>
                 <br />

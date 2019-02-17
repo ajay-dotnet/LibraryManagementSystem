@@ -22,7 +22,7 @@
                 <br />
                 <div class="row" ng-class="{ 'has-error' : CheckInForm.Fairy.$invalid && !CheckInForm.Fairy.$pristine }">
                     <div class="col-md-2"><label> Fairy </label></div>
-                    <div class="col-md-2" id="scrollable-dropdown-menu"><input type="text" name="Fairy" autofocus class="form-control" ng-model="addCheckIn.Fairy" uib-typeahead="fairy as fairy.Name for fairy in FairyList | filter:$viewValue" required /></div>
+                    <div class="col-md-2" id="scrollable-dropdown-menu" style="font-family:Mlwpm1"><input type="text" name="Fairy" autofocus class="form-control" ng-model="addCheckIn.Fairy" uib-typeahead="fairy as fairy.Name for fairy in FairyList | filter:$viewValue" required /></div>
                     <div class="col-md-2"></div>
                 </div>
                 <br />
@@ -30,16 +30,16 @@
                     <div class=" col-md-2"><label> Book Barcode </label></div>
                     <div class="col-md-2">
                         @*<ui-select multiple tagging tagging-label="false" class="form-control" ng-model="Barcodes" theme="bootstrap" style="width: 300px;" title="barcodes">
-                                <ui-select-match placeholder="Book Barcodes">{{$item}}</ui-select-match>
-                                <ui-select-choices repeat="spl in bars | filter:$select.search">
-                                    {{spl}}
-                                </ui-select-choices>
-                            </ui-select>*@
+                    <ui-select-match placeholder="Book Barcodes">{{$item}}</ui-select-match>
+                    <ui-select-choices repeat="spl in bars | filter:$select.search">
+                        {{spl}}
+                    </ui-select-choices>
+                </ui-select>*@
                         @*<ui-select tagging multiple ng-model="Barcodes" class="form-control">
-                            <ui-select-match>{{$select.selected}}</ui-select-match>
-                            @*<ui-select-choices ng-repeat="color in FairyList | filter:$select.search">
-                                {{color}}
-                            </ui-select-choices>*@
+                <ui-select-match>{{$select.selected}}</ui-select-match>
+                @*<ui-select-choices ng-repeat="color in FairyList | filter:$select.search">
+                    {{color}}
+                </ui-select-choices>*@
                         @*</ui-select>*@
                         <input ng-model="Barcodes" class="form-control" ng-list required />
                         <br />
@@ -66,6 +66,9 @@
                     <div class=" col-md-2"></div>
                     <div class="col-md-6"><button type="submit" class="btn btn-sm primary" style="max-width:300px;" ng-disabled="CheckInForm.$invalid">Submit</button></div>
                     <div class="col-md-2"></div>
+                </div>
+                <div ng-show="loadError == true" class=".has-error">
+                    Error: {{ErrorMessage}}
                 </div>
             </form>
         </div>

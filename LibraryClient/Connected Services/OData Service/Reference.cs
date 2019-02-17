@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 6/15/2018 10:16:28 PM
+// Generation date: 11/22/2018 2:44:52 AM
 namespace LibraryManagement.LibraryClient
 {
     
@@ -25,41 +25,10 @@ namespace LibraryManagement.LibraryClient
         public Container(global::System.Uri serviceRoot) : 
                 base(serviceRoot, global::System.Data.Services.Common.DataServiceProtocolVersion.V3)
         {
-            this.ResolveName = new global::System.Func<global::System.Type, string>(this.ResolveNameFromType);
-            this.ResolveType = new global::System.Func<string, global::System.Type>(this.ResolveTypeFromName);
             this.OnContextCreated();
             this.Format.LoadServiceModel = GeneratedEdmModel.GetInstance;
         }
         partial void OnContextCreated();
-        /// <summary>
-        /// Since the namespace configured for this service reference
-        /// in Visual Studio is different from the one indicated in the
-        /// server schema, use type-mappers to map between the two.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected global::System.Type ResolveTypeFromName(string typeName)
-        {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "LibraryManagement.ObjectModel", "LibraryManagement.LibraryClient");
-            if ((resolvedType != null))
-            {
-                return resolvedType;
-            }
-            return null;
-        }
-        /// <summary>
-        /// Since the namespace configured for this service reference
-        /// in Visual Studio is different from the one indicated in the
-        /// server schema, use type-mappers to map between the two.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected string ResolveNameFromType(global::System.Type clientType)
-        {
-            if (clientType.Namespace.Equals("LibraryManagement.LibraryClient", global::System.StringComparison.Ordinal))
-            {
-                return string.Concat("LibraryManagement.ObjectModel.", clientType.Name);
-            }
-            return null;
-        }
         /// <summary>
         /// There are no comments for Titles in the schema.
         /// </summary>

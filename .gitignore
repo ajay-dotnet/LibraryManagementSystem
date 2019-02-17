@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/LibraryClient/bin/Debug
+/LibraryClient/obj/Debug
+/LibraryManagement.Data.Interface/obj/Debug
+/LibraryManagement.Data.Interface/bin/Debug
+/LibraryManagement.Data/obj/Debug
+/LibraryManagement.Data/bin/Debug
+/LibraryManagementAPI/obj/Debug
+/LibraryManagementAPI/bin
+/LibraryManagement.ObjectModel/obj/Debug
+/LibraryManagement.ObjectModel/bin/Debug
+/LibraryManagementUI/bin
+/LibraryManagementUI/obj/Debug

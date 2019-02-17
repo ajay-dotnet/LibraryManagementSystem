@@ -27,6 +27,19 @@ namespace LibraryManagementUI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult UpdateBookCondition()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult UpdateBookCondition(List<string> barcodes, BookCondition bookCondition, DateTime damLostDate)
+        {
+            bookRepository.UpdateBookCondition(barcodes, bookCondition, damLostDate);
+            return Json("");
+        }
+
         public JsonResult GetAllTitles()
         {
             var titleList = bookRepository.GetTitleList();
@@ -43,6 +56,7 @@ namespace LibraryManagementUI.Controllers
         {
             book.Title_Id = book.Title.Id;
             book.BookCondition_Id = book.BookCondition.Id;
+            book.IssuedStatus = false;
             book.DamLostDate = (book.DamLostDate == default(DateTime)) ? null : book.DamLostDate;
             var barcodeList = new List<String>();
             for (int i = 0; i < noOfBooks; i++)
@@ -50,7 +64,7 @@ namespace LibraryManagementUI.Controllers
                 book.Barcode = bookRepository.GetBarcode(book.Title_Id);
                 //book.Barcode = (++barcode).ToString();
                 bookRepository.CreateMultiple<Book>("Books", book);
-                var barcode = BarCode39.getBarcodeImage(book.Barcode, "Book");
+                var barcode = BarCode39.getBarcodeImage(book.Barcode, book.Title.Name);
                 var barcodeUrl = "data:image/jpg;base64," + Convert.ToBase64String(barcode);
                 barcodeList.Add(barcodeUrl);
             }
